@@ -1,21 +1,5 @@
-package main
 
-import (
-	"fmt"
-	"math"
-	"sort"
-	"strconv"
-	"strings"
-)
-
-const testInput = `3 4
-4 3
-2 5
-1 3
-3 9
-3 3`
-
-const inputList = `61087   87490
+61087   87490
 31697   16584
 57649   82503
 75864   27659
@@ -1014,67 +998,4 @@ const inputList = `61087   87490
 16584   91025
 11460   91094
 85535   71742
-85773   24213`
-
-func parseInput(input string) [][2]int {
-	lines := strings.Split(strings.TrimSpace(input), "\n")
-	result := make([][2]int, len(lines))
-
-	for i, line := range lines {
-		numbers := strings.Fields(line)
-		if len(numbers) == 2 {
-			num1, _ := strconv.Atoi(numbers[0])
-			num2, _ := strconv.Atoi(numbers[1])
-			result[i] = [2]int{num1, num2}
-		}
-	}
-
-	return result
-}
-
-func sortByDex(input [][2]int, dex int) []int {
-	result := make([]int, len(input))
-	for i, val := range input {
-		result[i] = val[dex]
-	}
-	sort.Ints(result)
-	return result
-}
-
-func retDexSort(input [][2]int, dex int) []int {
-	results := make([]int, len(input))
-	num := math.MaxInt
-	for i, val := range input {
-		if val[dex] < num {
-			num = val[dex]
-			results[i] = num
-		}
-	}
-	return results
-}
-func getDifferenceList(inputA []int, inputB []int) []int {
-	if len(inputA) != len(inputB) {
-		return nil
-	}
-	results := make([]int, len(inputA))
-	for i, val := range inputA {
-		results[i] = int(math.Abs(float64(val - inputB[i])))
-	}
-	return results
-}
-func getSumOfList(input []int) int {
-	sum := 0
-	for _, val := range input {
-		sum += val
-	}
-	return sum
-}
-
-func main() {
-	parsedInput := parseInput(inputList)
-	listA := sortByDex(parsedInput, 0)
-	listB := sortByDex(parsedInput, 1)
-	diffList := getDifferenceList(listA, listB)
-	sum := getSumOfList(diffList)
-	fmt.Println(sum)
-}
+85773   24213
