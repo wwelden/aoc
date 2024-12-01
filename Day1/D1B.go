@@ -27,10 +27,15 @@ func getSimScore(listA []int, listB []int) int {
 	return score
 }
 
-func main() {
+func ProblemB() {
 	parsedInput := parseInput(inputFile)
 	listA, listB := splitLists(parsedInput)
 	count := getSimScore(listA, listB)
 
-	fmt.Println(count)
+	fmt.Println("Ans2: ", count)
+}
+
+func main() {
+	ProblemA()
+	ProblemB()
 }

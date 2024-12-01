@@ -17,6 +17,7 @@ const testInput = `3 4
 3 3`
 
 var inputFile = readInput()
+var parsedInput = parseInput(inputFile)
 
 func readInput() string {
 	inputFile, err := os.ReadFile("Input.txt")
@@ -51,17 +52,6 @@ func sortByDex(input [][2]int, dex int) []int {
 	return result
 }
 
-func retDexSort(input [][2]int, dex int) []int {
-	results := make([]int, len(input))
-	num := math.MaxInt
-	for i, val := range input {
-		if val[dex] < num {
-			num = val[dex]
-			results[i] = num
-		}
-	}
-	return results
-}
 func getDifferenceList(inputA []int, inputB []int) []int {
 	if len(inputA) != len(inputB) {
 		return nil
@@ -72,6 +62,7 @@ func getDifferenceList(inputA []int, inputB []int) []int {
 	}
 	return results
 }
+
 func getSumOfList(input []int) int {
 	sum := 0
 	for _, val := range input {
@@ -80,11 +71,10 @@ func getSumOfList(input []int) int {
 	return sum
 }
 
-func main() {
-	parsedInput := parseInput(inputFile)
+func ProblemA() {
 	listA := sortByDex(parsedInput, 0)
 	listB := sortByDex(parsedInput, 1)
 	diffList := getDifferenceList(listA, listB)
 	sum := getSumOfList(diffList)
-	fmt.Println(sum)
+	fmt.Println("Ans1: ", sum)
 }
