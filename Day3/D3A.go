@@ -3,14 +3,13 @@ package main
 import (
 	"fmt"
 	"os"
+	"regexp"
 	"strconv"
-	"strings"
 )
 
-const testInput = ``
+const testInput = "xmul(2,4)&mul[3,7]!^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))"
 
-var inputFile = readInput()
-var parsedInput = parseInput(inputFile)
+var outputFile = readInput()
 
 func readInput() string {
 	inputFile, err := os.ReadFile("Input.txt")
@@ -20,22 +19,33 @@ func readInput() string {
 	return string(inputFile)
 }
 
-func parseInput(input string) [][]int {
-	lines := strings.Split(strings.TrimSpace(input), "\n")
-	result := make([][]int, len(lines))
+func findValidMulOperations(input string) []int {
 
-	for i, line := range lines {
-		numbers := strings.Fields(line)
-		result[i] = make([]int, len(numbers))
-		for j, numStr := range numbers {
-			num, _ := strconv.Atoi(numStr)
-			result[i][j] = num
+	re := regexp.MustCompile(`mul\((\d+),(\d+)\)`)
+	matches := re.FindAllStringSubmatch(input, -1)
+
+	results := []int{}
+	for _, match := range matches {
+		x, errX := strconv.Atoi(match[1])
+		y, errY := strconv.Atoi(match[2])
+		if errX != nil || errY != nil {
+			continue
 		}
+		results = append(results, x*y)
 	}
 
-	return result
+	return results
+}
+
+func sumResults(results []int) int {
+	sum := 0
+	for _, result := range results {
+		sum += result
+	}
+	return sum
 }
 
 func partA() {
-	fmt.Println("Part A answer:")
+	results := findValidMulOperations(outputFile)
+	fmt.Println("Part A answer:", sumResults(results))
 }
