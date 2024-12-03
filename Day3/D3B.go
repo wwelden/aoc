@@ -40,6 +40,7 @@ func partB() {
 }
 
 func main() {
+	testResults()
 	partA()
 	partB()
 }

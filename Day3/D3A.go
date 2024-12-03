@@ -44,6 +44,12 @@ func sumResults(results []int) int {
 	}
 	return sum
 }
+func testResults() {
+	results := findValidMulOperations(testInput)
+	fmt.Println("Test answer A:", sumResults(results))
+	results = findValidMulOperations2(testInput)
+	fmt.Println("Test answer B:", sumResults(results))
+}
 
 func partA() {
 	results := findValidMulOperations(outputFile)
