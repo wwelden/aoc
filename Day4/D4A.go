@@ -6,8 +6,6 @@ import (
 	"strings"
 )
 
-//bug, got 10 extra
-
 const testInput = `MMMSXXMASM
 MSAMXMSMSA
 AMXSXMAAMM
@@ -37,20 +35,15 @@ func parseInput(input string) [][]rune {
 	for i, line := range lines {
 		result[i] = []rune(line)
 	}
-	// fmt.Println(result)
 	return result
-
 }
 
 func horizontalXMAS(input [][]rune) int {
 	count := 0
 
 	for _, line := range input {
-		// Convert line to string for easier pattern matching
 		lineStr := string(line)
-		// Check forward XMAS
 		count += strings.Count(lineStr, "XMAS")
-		// Check backward SAMX
 		count += strings.Count(lineStr, "SAMX")
 	}
 	return count
@@ -59,16 +52,13 @@ func horizontalXMAS(input [][]rune) int {
 func verticalXMAS(input [][]rune) int {
 	count := 0
 
-	// Create vertical strings
 	for j := 0; j < len(input[0]); j++ {
 		var vertical strings.Builder
 		for i := 0; i < len(input); i++ {
 			vertical.WriteRune(input[i][j])
 		}
 		vertStr := vertical.String()
-		// Check forward XMAS
 		count += strings.Count(vertStr, "XMAS")
-		// Check backward SAMX
 		count += strings.Count(vertStr, "SAMX")
 	}
 	return count
@@ -77,7 +67,6 @@ func verticalXMAS(input [][]rune) int {
 func diagonalXMAS(input [][]rune) int {
 	count := 0
 
-	// Top-left to bottom-right diagonals
 	for k := 0; k < len(input)*2-1; k++ {
 		var diagonal strings.Builder
 		for j := 0; j <= k; j++ {
@@ -87,9 +76,7 @@ func diagonalXMAS(input [][]rune) int {
 			}
 		}
 		diagStr := diagonal.String()
-		// Check forward XMAS
 		count += strings.Count(diagStr, "XMAS")
-		// Check backward SAMX
 		count += strings.Count(diagStr, "SAMX")
 	}
 	return count
@@ -98,7 +85,6 @@ func diagonalXMAS(input [][]rune) int {
 func upsideDownDiagonalXMAS(input [][]rune) int {
 	count := 0
 
-	// Top-right to bottom-left diagonals
 	for k := 0; k < len(input)*2-1; k++ {
 		var diagonal strings.Builder
 		for j := 0; j <= k; j++ {
@@ -108,9 +94,7 @@ func upsideDownDiagonalXMAS(input [][]rune) int {
 			}
 		}
 		diagStr := diagonal.String()
-		// Check forward XMAS
 		count += strings.Count(diagStr, "XMAS")
-		// Check backward SAMX
 		count += strings.Count(diagStr, "SAMX")
 	}
 	return count
@@ -119,21 +103,13 @@ func upsideDownDiagonalXMAS(input [][]rune) int {
 var results int
 
 func testResults() {
-	// fmt.Println("horizontal:", horizontalXMAS(testFile))
-	// fmt.Println("vertical:", verticalXMAS(testFile))
-	// fmt.Println("diagonal:", diagonalXMAS(testFile))
-	// fmt.Println("upside down diagonal:", upsideDownDiagonalXMAS(testFile))
 	results = horizontalXMAS(testFile) + verticalXMAS(testFile) + diagonalXMAS(testFile) + upsideDownDiagonalXMAS(testFile)
 	fmt.Println("Test answer A:", results)
-	results = PlusXMAS(testFile) + ExXMAS(testFile)
+	results = ExXMAS(testFile)
 	fmt.Println("Test answer B:", results)
 }
 
 func partA() {
-	// fmt.Println("horizontal:", horizontalXMAS(outputFile))
-	// fmt.Println("vertical:", verticalXMAS(outputFile))
-	// fmt.Println("diagonal:", diagonalXMAS(outputFile))
-	// fmt.Println("upside down diagonal:", upsideDownDiagonalXMAS(outputFile))
 	results = horizontalXMAS(outputFile) + verticalXMAS(outputFile) + diagonalXMAS(outputFile) + upsideDownDiagonalXMAS(outputFile)
 	fmt.Println("Part A answer:", results)
 }
