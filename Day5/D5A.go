@@ -133,6 +133,7 @@ func doesRowFollowRules(row []int, rules []tuple[int]) bool {
 
 func getMiddle(row []int) int {
 	middle := len(row) / 2
+	// fmt.Println(middle)
 	return row[middle]
 }
 
@@ -151,8 +152,8 @@ var results int
 func testResults() {
 	results = getValidRows(testPageNums, testRules)
 	fmt.Println("Test answer A:", results)
+	// results = getMiddleAll(fixRows(testInvalidRows, testRules))
 
-	fmt.Println("Test answer B:", results)
 }
 
 func partA() {
