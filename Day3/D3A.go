@@ -44,6 +44,7 @@ func sumResults(results []int) int {
 	}
 	return sum
 }
+
 func testResults() {
 	results := findValidMulOperations(testInput)
 	fmt.Println("Test answer A:", sumResults(results))
