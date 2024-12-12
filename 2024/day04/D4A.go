@@ -1,8 +1,8 @@
-package main
+package day04
 
 import (
+	"aoc/2024/util"
 	"fmt"
-	"os"
 	"strings"
 )
 
@@ -17,16 +17,8 @@ SAXAMASAAA
 MAMMMXMMMM
 MXMXAXMASX`
 
-var outputFile = parseInput(readInput())
+var outputFile = parseInput(util.ReadFile("/Users/williamwelden/Developer/aoc/2024/day04/Input.txt"))
 var testFile = parseInput(testInput)
-
-func readInput() string {
-	inputFile, err := os.ReadFile("Input.txt")
-	if err != nil {
-		panic(err)
-	}
-	return string(inputFile)
-}
 
 func parseInput(input string) [][]rune {
 	lines := strings.Split(strings.TrimSpace(input), "\n")
@@ -102,14 +94,9 @@ func upsideDownDiagonalXMAS(input [][]rune) int {
 
 var results int
 
-func testResults() {
+func SolveDay4PartA() {
 	results = horizontalXMAS(testFile) + verticalXMAS(testFile) + diagonalXMAS(testFile) + upsideDownDiagonalXMAS(testFile)
-	fmt.Println("Test answer A:", results)
-	results = ExXMAS(testFile)
-	fmt.Println("Test answer B:", results)
-}
-
-func partA() {
+	fmt.Println("D4A Test:", results)
 	results = horizontalXMAS(outputFile) + verticalXMAS(outputFile) + diagonalXMAS(outputFile) + upsideDownDiagonalXMAS(outputFile)
-	fmt.Println("Part A answer:", results)
+	fmt.Println("D4A: ", results)
 }

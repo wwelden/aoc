@@ -1,23 +1,15 @@
-package main
+package day03
 
 import (
+	"aoc/2024/util"
 	"fmt"
-	"os"
 	"regexp"
 	"strconv"
 )
 
 const testInput = "xmul(2,4)&mul[3,7]!^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))"
 
-var outputFile = readInput()
-
-func readInput() string {
-	inputFile, err := os.ReadFile("Input.txt")
-	if err != nil {
-		panic(err)
-	}
-	return string(inputFile)
-}
+var outputFile = util.ReadFile("/Users/williamwelden/Developer/aoc/2024/day03/Input.txt")
 
 func findValidMulOperations(input string) []int {
 
@@ -45,14 +37,9 @@ func sumResults(results []int) int {
 	return sum
 }
 
-func testResults() {
+func SolveDay3PartA() {
 	results := findValidMulOperations(testInput)
-	fmt.Println("Test answer A:", sumResults(results))
-	results = findValidMulOperations2(testInput)
-	fmt.Println("Test answer B:", sumResults(results))
-}
-
-func partA() {
-	results := findValidMulOperations(outputFile)
-	fmt.Println("Part A answer:", sumResults(results))
+	fmt.Println("D3A Test:", sumResults(results))
+	results = findValidMulOperations(outputFile)
+	fmt.Println("D3A: ", sumResults(results))
 }

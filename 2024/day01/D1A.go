@@ -1,9 +1,9 @@
-package main
+package day01
 
 import (
+	"aoc/2024/util"
 	"fmt"
 	"math"
-	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -16,16 +16,8 @@ const testInput = `3 4
 3 9
 3 3`
 
-var inputFile = readInput()
+var inputFile = util.ReadFile("/Users/williamwelden/Developer/aoc/2024/day01/Input.txt")
 var parsedInput = parseInput(inputFile)
-
-func readInput() string {
-	inputFile, err := os.ReadFile("Input.txt")
-	if err != nil {
-		panic(err)
-	}
-	return string(inputFile)
-}
 
 func parseInput(input string) [][2]int {
 	lines := strings.Split(strings.TrimSpace(input), "\n")
@@ -71,10 +63,20 @@ func getSumOfList(input []int) int {
 	return sum
 }
 
-func ProblemA() {
+func testResultsA() {
+	testInput := parseInput(testInput)
+	listA := sortByDex(testInput, 0)
+	listB := sortByDex(testInput, 1)
+	diffList := getDifferenceList(listA, listB)
+	sum := getSumOfList(diffList)
+	fmt.Println("D1A Test:", sum)
+}
+
+func SolveDay1PartA() {
+	testResultsA()
 	listA := sortByDex(parsedInput, 0)
 	listB := sortByDex(parsedInput, 1)
 	diffList := getDifferenceList(listA, listB)
 	sum := getSumOfList(diffList)
-	fmt.Println("Ans1: ", sum)
+	fmt.Println("D1A: ", sum)
 }

@@ -1,4 +1,4 @@
-package main
+package day04
 
 import (
 	"fmt"
@@ -58,13 +58,9 @@ func ExXMAS(input [][]rune) int {
 	return count
 }
 
-func partB() {
-	results := ExXMAS(outputFile)
-	fmt.Println("Part B answer:", results)
-}
-
-func main() {
-	testResults()
-	partA()
-	partB()
+func SolveDay4PartB() {
+	results = ExXMAS(testFile)
+	fmt.Println("D4B Test:", results)
+	results = ExXMAS(outputFile)
+	fmt.Println("D4B: ", results)
 }

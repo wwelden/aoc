@@ -1,4 +1,4 @@
-package main
+package day02
 
 import (
 	"fmt"
@@ -20,7 +20,19 @@ func removeVal(input []int) bool {
 	return result
 }
 
-func ProblemB() {
+func testResultsB() {
+	testInput := parseInput(testInput)
+	results := 0
+	for _, val := range testInput {
+		if removeVal(val) {
+			results++
+		}
+	}
+	fmt.Println("D2B Test:", results)
+}
+
+func SolveDay2PartB() {
+	testResultsB()
 	results := 0
 	for _, val := range parsedInput {
 		if removeVal(val) {
@@ -28,10 +40,5 @@ func ProblemB() {
 		}
 	}
 
-	fmt.Println("Ans2: ", results)
-}
-
-func main() {
-	ProblemA()
-	ProblemB()
+	fmt.Println("D2B: ", results)
 }

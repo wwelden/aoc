@@ -1,4 +1,4 @@
-package main
+package day03
 
 import (
 	"fmt"
@@ -34,13 +34,16 @@ func findValidMulOperations2(input string) []int {
 	return results
 }
 
-func partB() {
-	results := findValidMulOperations2(outputFile)
-	fmt.Println("Part B answer:", sumResults(results))
+func SolveDay3PartB() {
+	results := findValidMulOperations2(testInput)
+	fmt.Println("D3B Test:", sumResults(results))
+	results = findValidMulOperations2(outputFile)
+	fmt.Println("D3B: ", sumResults(results))
 }
 
-func main() {
-	testResults()
-	partA()
-	partB()
-}
+// func main() {
+// func main() {
+// 	testResults()
+// 	partA()
+// 	partB()
+// }

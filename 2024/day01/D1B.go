@@ -1,4 +1,4 @@
-package main
+package day01
 
 import (
 	"fmt"
@@ -27,15 +27,17 @@ func getSimScore(listA []int, listB []int) int {
 	return score
 }
 
-func ProblemB() {
-	parsedInput := parseInput(inputFile)
-	listA, listB := splitLists(parsedInput)
+func testResultsB() {
+	testInput := parseInput(testInput)
+	listA, listB := splitLists(testInput)
 	count := getSimScore(listA, listB)
-
-	fmt.Println("Ans2: ", count)
+	fmt.Println("D1B Test:", count)
 }
 
-func main() {
-	ProblemA()
-	ProblemB()
+func SolveDay1PartB() {
+	testResultsB()
+	listA, listB := splitLists(parsedInput)
+	count := getSimScore(listA, listB)
+	fmt.Println("D1B: ", count)
+
 }

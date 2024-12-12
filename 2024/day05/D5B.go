@@ -1,10 +1,11 @@
-package main
+package day05
 
 import (
+	"aoc/2024/util"
 	"fmt"
 )
 
-func getInvalidRows(pageNums [][]int, rules []tuple[int]) [][]int {
+func getInvalidRows(pageNums [][]int, rules []util.Tuple[int]) [][]int {
 	invalidRows := [][]int{}
 	for _, row := range pageNums {
 		if !doesRowFollowRules(row, rules) {
@@ -17,16 +18,16 @@ func getInvalidRows(pageNums [][]int, rules []tuple[int]) [][]int {
 var testInvalidRows = getInvalidRows(testPageNums, testRules)
 var fileInvalidRows = getInvalidRows(filePageNums, fileRules)
 
-func getRulesForRow(row []int, rules []tuple[int]) []tuple[int] {
-	returnRules := []tuple[int]{}
+func getRulesForRow(row []int, rules []util.Tuple[int]) []util.Tuple[int] {
+	returnRules := []util.Tuple[int]{}
 	first := false
 	second := false
 	for _, rule := range rules {
 		for _, num := range row {
-			if num == fst(rule) {
+			if num == util.Fst(rule) {
 				first = true
 			}
-			if num == snd(rule) {
+			if num == util.Snd(rule) {
 				second = true
 			}
 		}
@@ -39,24 +40,24 @@ func getRulesForRow(row []int, rules []tuple[int]) []tuple[int] {
 	return returnRules
 }
 
-func getRulesForNum(num int, rules []tuple[int]) []tuple[int] {
-	returnRules := []tuple[int]{}
+func getRulesForNum(num int, rules []util.Tuple[int]) []util.Tuple[int] {
+	returnRules := []util.Tuple[int]{}
 	for _, rule := range rules {
-		if num == fst(rule) {
+		if num == util.Fst(rule) {
 			returnRules = append(returnRules, rule)
 		}
 	}
 	return returnRules
 }
 
-func applyRule(row []int, rule tuple[int]) []int {
+func applyRule(row []int, rule util.Tuple[int]) []int {
 	firstIndex := -1
 	secondIndex := -1
 	for i, num := range row {
-		if num == fst(rule) {
+		if num == util.Fst(rule) {
 			firstIndex = i
 		}
-		if num == snd(rule) {
+		if num == util.Snd(rule) {
 			secondIndex = i
 		}
 	}
@@ -66,7 +67,7 @@ func applyRule(row []int, rule tuple[int]) []int {
 	return row
 }
 
-func applyRules(row []int, rules []tuple[int]) []int {
+func applyRules(row []int, rules []util.Tuple[int]) []int {
 	rulesForRow := getRulesForRow(row, rules)
 	for _, rule := range rulesForRow {
 		row = applyRule(row, rule)
@@ -74,7 +75,7 @@ func applyRules(row []int, rules []tuple[int]) []int {
 	return row
 }
 
-func fixRows(invalidRows [][]int, rules []tuple[int]) [][]int {
+func fixRows(invalidRows [][]int, rules []util.Tuple[int]) [][]int {
 	// invalidRows := fileInvalidRows
 	fixedRows := [][]int{}
 	for _, row := range invalidRows {
@@ -94,19 +95,13 @@ func getMiddleAll(rows [][]int) int {
 	return middle
 }
 
-func partB() {
+func SolveDay5PartB() {
 	// fixedRows := fixRows(fileInvalidRows, fileRules)
 
 	fmt.Println(fixRows(testInvalidRows, testRules))
-	results = getMiddleAll(fixRows(testInvalidRows, testRules))
-	fmt.Println("Test answer B:", results)
+	results := getMiddleAll(fixRows(testInvalidRows, testRules))
+	fmt.Println("D5B Test:", results)
 	results = getMiddleAll(fixRows(fileInvalidRows, fileRules))
 
-	fmt.Println("Part B answer:", results)
-}
-
-func main() {
-	testResults()
-	partA()
-	partB()
+	fmt.Println("D5B: ", results)
 }

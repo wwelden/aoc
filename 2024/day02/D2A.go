@@ -1,9 +1,9 @@
-package main
+package day02
 
 import (
+	"aoc/2024/util"
 	"fmt"
 	"math"
-	"os"
 	"strconv"
 	"strings"
 )
@@ -15,16 +15,8 @@ const testInput = `7 6 4 2 1
 8 6 4 4 1
 1 3 6 7 9`
 
-var inputFile = readInput()
+var inputFile = util.ReadFile("/Users/williamwelden/Developer/aoc/2024/day02/Input.txt")
 var parsedInput = parseInput(inputFile)
-
-func readInput() string {
-	inputFile, err := os.ReadFile("Input.txt")
-	if err != nil {
-		panic(err)
-	}
-	return string(inputFile)
-}
 
 func parseInput(input string) [][]int {
 	lines := strings.Split(strings.TrimSpace(input), "\n")
@@ -87,6 +79,29 @@ func ProblemA() {
 	}
 
 	fmt.Println("Ans1: ", results)
+}
+
+func testResultsA() {
+	testInput := parseInput(testInput)
+	results := 0
+	for _, val := range testInput {
+		if getGaps(val) {
+			results++
+		}
+	}
+	fmt.Println("D2A Test:", results)
+}
+
+func SolveDay2PartA() {
+	testResultsA()
+	results := 0
+	for _, val := range parsedInput {
+		if getGaps(val) {
+			results++
+		}
+	}
+
+	fmt.Println("D2A: ", results)
 }
 
 // func main() {
