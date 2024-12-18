@@ -38,6 +38,7 @@ const testInput = `47|53
 
 var testFile = parseToTuple(testInput)
 var inputFile = parseToTuple(util.ReadFile("/Users/williamwelden/Developer/aoc/2024/day05/Input.txt"))
+var rawFile = util.ReadFile("/Users/williamwelden/Developer/aoc/2024/day05/Input.txt")
 
 // type Tuple[T any] struct {
 // 	a [2]T
@@ -124,7 +125,10 @@ func doesRowFollowRules(row []int, rules []util.Tuple[int]) bool {
 }
 
 func getMiddle(row []int) int {
-	middle := len(row) / 2
+	if len(row)%2 == 0 {
+		panic("Cannot get middle of even length row")
+	}
+	middle := (len(row) - 1) / 2
 	return row[middle]
 }
 

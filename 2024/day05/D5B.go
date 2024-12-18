@@ -3,6 +3,9 @@ package day05
 import (
 	"aoc/2024/util"
 	"fmt"
+	"sort"
+	"strconv"
+	"strings"
 )
 
 func getInvalidRows(pageNums [][]int, rules []util.Tuple[int]) [][]int {
@@ -95,13 +98,111 @@ func getMiddleAll(rows [][]int) int {
 	return middle
 }
 
+func IsCorrectlyOrdered(pages []int, rules map[int]util.Set[int]) bool {
+	seen := util.SetOf[int]()
+
+	for _, page := range pages {
+		mustBeBefore := rules[page]
+		if len(mustBeBefore.Intersection(seen)) > 0 {
+			return false
+		}
+		seen.Add(page)
+	}
+	return true
+}
+func calculateMiddleOfIncorrectlyOrderedUpdate(rules map[int]util.Set[int], update []int) int {
+	if IsCorrectlyOrdered(update, rules) {
+		return 0
+	}
+
+	sort.Slice(update, func(i, j int) bool {
+		left := update[i]
+		right := update[j]
+		rule, found := rules[left]
+
+		if found && rule.Contains(right) {
+			return true
+		}
+
+		return false
+	})
+	return getMiddle(update)
+}
+
+func getOrderingRules(file string) map[int]util.Set[int] {
+	rules := make(map[int]util.Set[int])
+
+	for _, rule := range strings.Split(file, "\n") {
+		r := strings.Split(rule, "|")
+		before, err := strconv.Atoi(r[0])
+		if err != nil {
+			panic(err)
+		}
+
+		after, err := strconv.Atoi(r[1])
+		if err != nil {
+			panic(err)
+		}
+
+		_, found := rules[before]
+		if !found {
+			rules[before] = util.SetOf[int]()
+		}
+
+		rules[before].Add(after)
+	}
+
+	return rules
+}
+
+func getPageUpdates(file string) [][]int {
+	lines := strings.Split(file, "\n")
+	updates := make([][]int, 0, len(lines))
+
+	for _, line := range lines {
+		page_strings := strings.Split(line, ",")
+		pages := make([]int, 0, len(page_strings))
+
+		for _, s := range page_strings {
+			page, err := strconv.Atoi(s)
+			if err != nil {
+				panic(err)
+			}
+
+			pages = append(pages, page)
+		}
+
+		updates = append(updates, pages)
+	}
+
+	return updates
+}
+
+func ParseInput(file string) (map[int]util.Set[int], [][]int) {
+	parts := strings.Split(file, "\n\n")
+
+	rules := getOrderingRules(parts[0])
+	updates := getPageUpdates(parts[1])
+
+	return rules, updates
+}
 func SolveDay5PartB() {
 	// fixedRows := fixRows(fileInvalidRows, fileRules)
 
 	fmt.Println(fixRows(testInvalidRows, testRules))
 	results := getMiddleAll(fixRows(testInvalidRows, testRules))
 	fmt.Println("D5B Test:", results)
-	results = getMiddleAll(fixRows(fileInvalidRows, fileRules))
+
+	rules, updates := ParseInput(rawFile)
+
+	sum := 0
+	for _, update := range updates {
+		sum += calculateMiddleOfIncorrectlyOrderedUpdate(rules, update)
+	}
+
+	// fmt.Println(sum)
+
+	results = sum
 
 	fmt.Println("D5B: ", results)
 }
