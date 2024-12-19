@@ -200,8 +200,6 @@ func SolveDay5PartB() {
 		sum += calculateMiddleOfIncorrectlyOrderedUpdate(rules, update)
 	}
 
-	// fmt.Println(sum)
-
 	results = sum
 
 	fmt.Println("D5B: ", results)
