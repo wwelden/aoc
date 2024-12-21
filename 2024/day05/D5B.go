@@ -110,6 +110,7 @@ func IsCorrectlyOrdered(pages []int, rules map[int]util.Set[int]) bool {
 	}
 	return true
 }
+
 func calculateMiddleOfIncorrectlyOrderedUpdate(rules map[int]util.Set[int], update []int) int {
 	if IsCorrectlyOrdered(update, rules) {
 		return 0
@@ -132,14 +133,19 @@ func calculateMiddleOfIncorrectlyOrderedUpdate(rules map[int]util.Set[int], upda
 func getOrderingRules(file string) map[int]util.Set[int] {
 	rules := make(map[int]util.Set[int])
 
-	for _, rule := range strings.Split(file, "\n") {
+	for _, rule := range strings.Split(strings.TrimSpace(file), "\n") {
+		rule = strings.TrimSpace(rule)
+		if rule == "" {
+			continue
+		}
+
 		r := strings.Split(rule, "|")
-		before, err := strconv.Atoi(r[0])
+		before, err := strconv.Atoi(strings.TrimSpace(r[0]))
 		if err != nil {
 			panic(err)
 		}
 
-		after, err := strconv.Atoi(r[1])
+		after, err := strconv.Atoi(strings.TrimSpace(r[1]))
 		if err != nil {
 			panic(err)
 		}
@@ -156,14 +162,24 @@ func getOrderingRules(file string) map[int]util.Set[int] {
 }
 
 func getPageUpdates(file string) [][]int {
-	lines := strings.Split(file, "\n")
+	lines := strings.Split(strings.TrimSpace(file), "\n")
 	updates := make([][]int, 0, len(lines))
 
 	for _, line := range lines {
+		line = strings.TrimSpace(line)
+		if line == "" {
+			continue
+		}
+
 		page_strings := strings.Split(line, ",")
 		pages := make([]int, 0, len(page_strings))
 
 		for _, s := range page_strings {
+			s = strings.TrimSpace(s)
+			if s == "" {
+				continue
+			}
+
 			page, err := strconv.Atoi(s)
 			if err != nil {
 				panic(err)
