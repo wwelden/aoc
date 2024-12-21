@@ -6,6 +6,7 @@ import (
 	"aoc/2024/day03"
 	"aoc/2024/day04"
 	"aoc/2024/day05"
+	"aoc/2024/day06"
 	"fmt"
 	"os"
 )
@@ -52,6 +53,146 @@ func main() {
 			day05.SolveDay5PartA()
 		case "2":
 			day05.SolveDay5PartB()
+		}
+	case "6":
+		switch problem {
+		case "1":
+			day06.SolveDay6PartA()
+		case "2":
+			day06.SolveDay6PartB()
+		}
+	case "7":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "8":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "9":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "10":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "11":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "12":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "13":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "14":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "15":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "16":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "17":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "18":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "19":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "20":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "21":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "22":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "23":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "24":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
+		}
+	case "25":
+		switch problem {
+		case "1":
+			fmt.Println("problem not started yet")
+		case "2":
+			fmt.Println("problem not started yet")
 		}
 	default:
 		fmt.Println("Invalid input")
