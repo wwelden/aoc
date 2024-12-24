@@ -7,6 +7,7 @@ import (
 	"aoc/2024/day04"
 	"aoc/2024/day05"
 	"aoc/2024/day06"
+	"aoc/2024/day07"
 	"fmt"
 	"os"
 )
@@ -64,9 +65,9 @@ func main() {
 	case "7":
 		switch problem {
 		case "1":
-			fmt.Println("problem not started yet")
+			day07.SolveDay7PartA()
 		case "2":
-			fmt.Println("problem not started yet")
+			day07.SolveDay7PartB()
 		}
 	case "8":
 		switch problem {

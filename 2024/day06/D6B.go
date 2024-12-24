@@ -77,7 +77,6 @@ func testDay6PartB() {
 
 func SolveDay6PartB() {
 	testDay6PartB()
-
 	file := util.ReadFile("/Users/williamwelden/Developer/aoc/2024/day06/Input.txt")
 	lines := strings.Split(file, "\n")
 
