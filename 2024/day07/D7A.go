@@ -53,15 +53,30 @@ type equation struct {
 	operands []int
 }
 
-type node struct {
-	mult  *node
-	add   *node
+// Node represents a node in the binary tree.
+type Node struct {
 	value int
+	mult  *Node
+	add   *Node
 }
 
-// func (eq *equation) getTestVal(input int) {
-// 	return eq.testVal
-// }
+// buildTree constructs the binary tree from the given list.
+func buildTree(lst []int) *Node {
+	if len(lst) == 0 {
+		return nil
+	}
+	// Root node is the first value in the list
+	root := &Node{value: lst[0]}
+	// Recursively construct the left (mult) and right (add) subtrees
+	if len(lst) > 1 {
+		root.mult = &Node{value: root.value * lst[1]}
+		root.add = &Node{value: root.value + lst[1]}
+		// Recursively apply the process for the rest of the list
+		root.mult = buildTree(lst[1:])
+		root.add = buildTree(lst[1:])
+	}
+	return root
+}
 
 func parse(input string) []equation {
 	lines := strings.Split(strings.TrimSpace(input), "\n")
@@ -106,10 +121,7 @@ func SolveDay7PartA() {
 	file := util.ReadFile("/Users/williamwelden/Developer/aoc/2024/day07/Input.txt")
 	parsedFile := parse(file)
 
-	test := make([]int, 5)
-	for i := range test {
-		test[i] = (i + 1) * 5
-	}
+	test := []int{5, 10, 15, 20, 25}
 	fmt.Println("test: ", test)
 
 	fmt.Println("hello: ", parsedFile[0].testVal)
@@ -117,4 +129,6 @@ func SolveDay7PartA() {
 	// fmt.Println("div: ", div(test))
 	fmt.Println("add: ", add(parsedFile[0].operands))
 	// fmt.Println("sub: ", sub(parsedFile[0].operands))
+
+	testTree()
 }
