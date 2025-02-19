@@ -65,17 +65,75 @@ func buildTree(lst []int) *Node {
 	if len(lst) == 0 {
 		return nil
 	}
-	// Root node is the first value in the list
+
+	// Root node starts with the first value
 	root := &Node{value: lst[0]}
-	// Recursively construct the left (mult) and right (add) subtrees
+
 	if len(lst) > 1 {
-		root.mult = &Node{value: root.value * lst[1]}
-		root.add = &Node{value: root.value + lst[1]}
-		// Recursively apply the process for the rest of the list
-		root.mult = buildTree(lst[1:])
-		root.add = buildTree(lst[1:])
+		// Compute new values
+		multVal := root.value * lst[1]
+		addVal := root.value + lst[1]
+
+		// Assign computed values to the child nodes
+		root.mult = buildTree(append([]int{multVal}, lst[2:]...))
+		root.add = buildTree(append([]int{addVal}, lst[2:]...))
 	}
+
 	return root
+}
+
+func printNode(node Node) {
+	if node.mult == nil {
+		fmt.Println("End node: ", node.value)
+		fmt.Println("")
+	} else {
+		fmt.Println("Node: ", node.value)
+		fmt.Println("Mult node: ", node.mult.value)
+		fmt.Println("Add node: ", node.add.value)
+		fmt.Println("")
+		printNode(*node.mult)
+		printNode(*node.add)
+	}
+}
+
+func printTree(lst []int) {
+	tree := buildTree(lst)
+	printNode(*tree)
+}
+func printPaths(node *Node, path []int, ops []string) {
+	if node == nil {
+		return
+	}
+
+	// Add the current node value to the path
+	path = append(path, node.value)
+
+	// If we are at a leaf node, print the path
+	if node.mult == nil && node.add == nil {
+		// Build the equation string
+		equation := fmt.Sprintf("%d", path[0])
+		for i := 1; i < len(path); i++ {
+			equation += fmt.Sprintf(" %s %d", ops[i-1], path[i])
+		}
+		fmt.Println(equation, "=", path[len(path)-1])
+		return
+	}
+
+	// Recur for left (Multiplication)
+	if node.mult != nil {
+		printPaths(node.mult, append([]int(nil), path...), append(ops, "*"))
+	}
+
+	// Recur for right (Addition)
+	if node.add != nil {
+		printPaths(node.add, append([]int(nil), path...), append(ops, "+"))
+	}
+}
+
+// Wrapper function
+func printTreePaths(lst []int) {
+	tree := buildTree(lst)
+	printPaths(tree, []int{}, []string{})
 }
 
 func parse(input string) []equation {
@@ -130,5 +188,5 @@ func SolveDay7PartA() {
 	fmt.Println("add: ", add(parsedFile[0].operands))
 	// fmt.Println("sub: ", sub(parsedFile[0].operands))
 
-	testTree()
+	printTreePaths(test)
 }
