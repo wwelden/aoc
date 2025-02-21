@@ -170,23 +170,41 @@ func parse(input string) []equation {
 	return equations
 }
 
-func testDay7PartA() {
+func isWorkingVal(input equation) bool {
+	orgVal := input.testVal
+	rootNode := buildTree(input.operands)
+	return checkNodes(rootNode, orgVal)
+}
 
+func checkNodes(node *Node, target int) bool {
+	if node == nil {
+		return false
+	}
+	if node.mult == nil && node.add == nil {
+		return node.value == target
+	}
+	return checkNodes(node.mult, target) || checkNodes(node.add, target)
+}
+
+func sumWorkingVals(input string) int {
+	equations := parse(input)
+	sum := 0
+
+	for _, eq := range equations {
+		if isWorkingVal(eq) {
+			sum += eq.testVal
+		}
+	}
+
+	return sum
+}
+
+func testDay7PartA() {
+	result := sumWorkingVals(testInput)
+	fmt.Println("Test Sum of working values:", result)
 }
 
 func SolveDay7PartA() {
 	testDay7PartA()
-	file := util.ReadFile("/Users/williamwelden/Developer/aoc/2024/day07/Input.txt")
-	parsedFile := parse(file)
-
-	test := []int{5, 10, 15, 20, 25}
-	fmt.Println("test: ", test)
-
-	fmt.Println("hello: ", parsedFile[0].testVal)
-	fmt.Println("mult: ", mult(parsedFile[0].operands))
-	// fmt.Println("div: ", div(test))
-	fmt.Println("add: ", add(parsedFile[0].operands))
-	// fmt.Println("sub: ", sub(parsedFile[0].operands))
-
-	printTreePaths(test)
+	fmt.Println("Sum of working values:", sumWorkingVals(util.ReadFile("/Users/williamwelden/Developer/aoc/2024/day07/Input.txt")))
 }
