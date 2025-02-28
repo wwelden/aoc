@@ -38,7 +38,7 @@ func findAntennas(grid Grid) map[rune][]Position {
 	antennas := make(map[rune][]Position)
 	for y, row := range grid {
 		for x, c := range row {
-			if c != '.' && c != '#' { // Assuming '.' is empty space and '#' is an antinode
+			if c != '.' && c != '#' { // Skip empty space and antinode markers
 				antennas[c] = append(antennas[c], Position{x, y})
 			}
 		}
@@ -56,49 +56,28 @@ func findAntinodes(antennas []Position, width, height int) map[Position]bool {
 			a1 := antennas[i]
 			a2 := antennas[j]
 
-			// For each potential antinode position
-			for x := 0; x < width; x++ {
-				for y := 0; y < height; y++ {
-					antinode := Position{X: x, Y: y}
+			// Calculate the two antinode positions directly
+			// First antinode: 2*a2 - a1 (where point is twice as far from a1 as from a2)
+			antinode1X := 2*a2.X - a1.X
+			antinode1Y := 2*a2.Y - a1.Y
 
-					// Skip if the antinode is at the same position as either antenna
-					if (antinode.X == a1.X && antinode.Y == a1.Y) ||
-						(antinode.X == a2.X && antinode.Y == a2.Y) {
-						continue
-					}
+			// Second antinode: 2*a1 - a2 (where point is twice as far from a2 as from a1)
+			antinode2X := 2*a1.X - a2.X
+			antinode2Y := 2*a1.Y - a2.Y
 
-					// Check if the three points are collinear
-					if !isCollinear(a1, antinode, a2) {
-						continue
-					}
+			// Check if the first antinode is within bounds
+			if antinode1X >= 0 && antinode1X < width && antinode1Y >= 0 && antinode1Y < height {
+				antinodes[Position{antinode1X, antinode1Y}] = true
+			}
 
-					// Calculate distances (squared to avoid floating point)
-					d1 := distanceSquared(antinode, a1)
-					d2 := distanceSquared(antinode, a2)
-
-					// Check if one distance is twice the other
-					if d1 == 4*d2 || d2 == 4*d1 {
-						antinodes[antinode] = true
-					}
-				}
+			// Check if the second antinode is within bounds
+			if antinode2X >= 0 && antinode2X < width && antinode2Y >= 0 && antinode2Y < height {
+				antinodes[Position{antinode2X, antinode2Y}] = true
 			}
 		}
 	}
 
 	return antinodes
-}
-
-// Check if three points are collinear
-func isCollinear(p1, p2, p3 Position) bool {
-	// Using the formula: (y2-y1)*(x3-x1) == (y3-y1)*(x2-x1)
-	return (p2.Y-p1.Y)*(p3.X-p1.X) == (p3.Y-p1.Y)*(p2.X-p1.X)
-}
-
-// Calculate the squared distance between two points
-func distanceSquared(p1, p2 Position) int {
-	dx := p2.X - p1.X
-	dy := p2.Y - p1.Y
-	return dx*dx + dy*dy
 }
 
 func solve(grid Grid) int {
