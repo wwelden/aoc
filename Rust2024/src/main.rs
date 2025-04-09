@@ -1,27 +1,26 @@
-use std::fs;
-use std::io;
+use std::fs::read_to_string;
 
+fn main(){
+    let mut left = Vec::new();
+    let mut right = Vec::new();
 
-
-fn readFile() -> io::Result<()> {
-    let file_path = "src/input.txt";
-    let contents = fs::read_to_string(file_path)?;
-    println!("File contents:\n{}", contents);
-    Ok(())
-}
-
-fn parseInput(input: string)-> Vec<[i32; 2]>> {
-    let lines: Vec<&str> = inout.trim().lines().collect();
-    let mut result = vec![[0; 2]; lines.len()];
-
-    for (i, line) in line.iter().enumerate() {
-        let numbers: Vec<&str> = line.split_whitespace().collect();
-        if numbers.len() == 2 {
-            let num1 = numbers[0].parse::<i32>().unwrap_or(0);
-            let num2 = numbers[1].parse::<i32>().unwrap_or(0);
-            result[i] = [num1, num2];
+   for line in read_to_string("src/Input.txt").unwrap().lines() {
+        if line.trim().is_empty() {
+            continue;
         }
+        let numbers: Vec<&str> = line.split_whitespace().collect();
+        left.push(numbers[0].parse::<i64>().unwrap());
+        right.push(numbers[1].parse::<i64>().unwrap());
     }
 
-    result
+    left.sort();
+    right.sort();
+
+    let mut difference = Vec::new();
+    for i in 0..left.len() {
+        difference.push(left[i].abs()- right[i].abs());
+    }
+
+    let difference_sum: i64 = difference.iter().sum();
+    print!("result: {:?}", difference_sum);
 }
